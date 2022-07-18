@@ -1,0 +1,29 @@
+Lang:
+  no_permission: "&4You do not have permission to execute this command!"
+  sender_not_player: "&4You cannot execute this command in the terminal!"
+  invalid_player: "&4That player is invalid!"
+  key_invalid: "&4That key is invalid!"
+
+Permission:
+  set_prefix: "PrefixesPlus.setprefix"
+  remove_prefix: "PrefixesPlus.removeprefix"
+  admin: "PrefixesPlus.*"
+
+
+#You can add prefixes by using the same format down below.
+Prefixes:
+  Owner:
+    display: "&7[&4Owner&7]"
+    key: 'owner'
+  Moderator:
+    display: "&7[&1Moderator&7]"
+    key: 'mod'
+  Developer:
+    display: "&7[&5Developer&7]"
+    key: 'developer'
+  Helper:
+    display: "&7[&aHelper&7]"
+    key: 'helper'
+  Admin:
+    display: "&7[&cAdmin&7]"
+    key: 'admin'

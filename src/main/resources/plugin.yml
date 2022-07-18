@@ -1,0 +1,9 @@
+name: PrefixesPlus
+main: me.xaxis.prefixesplus.PrefixesPlus
+version: 0.0.1
+author: Xaxis
+
+commands:
+  prefix:
+    description: set/remove prefixes for yourself or another player
+    usage: /<command> <args>
