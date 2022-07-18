@@ -13,17 +13,17 @@ Permission:
 #You can add prefixes by using the same format down below.
 Prefixes:
   Owner:
-    display: "&7[&4Owner&7]"
+    display: "&7[&4Owner&7]&r"
     key: 'owner'
   Moderator:
-    display: "&7[&1Moderator&7]"
+    display: "&7[&1Moderator&7]&r"
     key: 'mod'
   Developer:
-    display: "&7[&5Developer&7]"
+    display: "&7[&5Developer&7]&r"
     key: 'developer'
   Helper:
-    display: "&7[&aHelper&7]"
+    display: "&7[&aHelper&7]&r"
     key: 'helper'
   Admin:
-    display: "&7[&cAdmin&7]"
+    display: "&7[&cAdmin&7]&r"
     key: 'admin'
