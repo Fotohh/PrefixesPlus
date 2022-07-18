@@ -28,68 +28,95 @@ public class PrefixCommand implements CommandExecutor {
 
         if(sender instanceof Player player) {
 
+            if(args.length >= 1) {
+
+                if (args[0].equalsIgnoreCase("list")) {
+
+                    player.sendMessage(Utils.chat("&aList of available prefixes:"));
+
+                    for (String keys : manager.getPrefixes().keySet()) {
+
+                        player.sendMessage(Utils.chat(keys + ": " + manager.getPrefix(keys)));
+
+                    }
+
+                    return true;
+
+                }
+
+            }
+
             if (args.length >= 2) {
 
                 if (args[0].equalsIgnoreCase("set") && player.hasPermission(Permission.SET_PREFIX.string(instance)) || args[0].equalsIgnoreCase("set") && player.hasPermission(Permission.ADMIN.string(instance))) {
 
                     Player other = Bukkit.getServer().getPlayer(args[1]);
 
-                    if(other == null) {player.sendMessage(Utils.chat(Lang.PLAYER_INVALID.string(instance))); return true;}
+                    if (other == null) {
+
+                        player.sendMessage(Utils.chat(Lang.PLAYER_INVALID.string(instance)));
+
+                        return true;
+
+                    }
 
                     String prefix_name = args[2];
 
-                    if(!manager.getPrefixes().containsKey(prefix_name)){ return true;}
+                    if (!manager.getPrefixes().containsKey(prefix_name)) {
 
-                    other.setDisplayName(manager.getPrefix(prefix_name) + " " + other.getName());
-                    other.setPlayerListName(manager.getPrefix(prefix_name) + " " + other.getName());
+                        return true;
+                    }
+
+                    other.setDisplayName(Utils.chat(manager.getPrefix(prefix_name) + " " + other.getName()));
+
+                    other.setPlayerListName(Utils.chat(manager.getPrefix(prefix_name) + " " + other.getName()));
+
                     manager.setHasPrefix(player.getUniqueId(), true);
 
-                    player.sendMessage(Utils.chat("&aSuccessfully set "+other.getDisplayName()+"'s prefix!"));
+                    manager.setPrefix(player.getUniqueId(), manager.getPrefix(prefix_name));
+
+                    player.sendMessage(Utils.chat("&aSuccessfully set " + other.getDisplayName() + "'s prefix!"));
 
                     return true;
                 }
-                else if(args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.REMOVE_PREFIX.string(instance)) || args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.ADMIN.string(instance))){
+
+                if (args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.REMOVE_PREFIX.string(instance)) || args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.ADMIN.string(instance))) {
 
                     Player other = Bukkit.getServer().getPlayer(args[1]);
 
-                    if(other == null) {player.sendMessage(Utils.chat(Lang.PLAYER_INVALID.string(instance))); return true;}
-
-                    String prefix_name = args[2];
-
-                    if(!manager.getPrefixes().containsKey(prefix_name)){ return true;}
-
-                    other.setDisplayName(other.getName());
-                    other.setPlayerListName(other.getName());
-                    manager.setHasPrefix(player.getUniqueId(), false);
-
-                    player.sendMessage(Utils.chat("&aSuccessfully removed "+other.getDisplayName()+"'s prefix!"));
-
-                    return true;
-                }
-
-            }else{
-
-                if(args[0].equalsIgnoreCase("list")){
-
-                    player.sendMessage(Utils.chat("&aList of available prefixes:"));
-
-                    for(String keys : manager.getPrefixes().keySet()){
-                        player.sendMessage(Utils.chat(keys+": "+manager.getPrefix(keys)));
+                    if (other == null) {
+                        player.sendMessage(Utils.chat(Lang.PLAYER_INVALID.string(instance)));
+                        return true;
                     }
 
+                    if(!manager.hasPrefix(other.getUniqueId())){
+                        player.sendMessage(Utils.chat("&4This player does not have a prefix set!"));
+                        return true;
+                    }
+
+                    other.setDisplayName(Utils.chat(other.getName()));
+
+                    other.setPlayerListName(Utils.chat(other.getName()));
+
+                    manager.setHasPrefix(player.getUniqueId(), false);
+
+                    player.sendMessage(Utils.chat("&aSuccessfully removed " + other.getDisplayName() + "'s prefix!"));
+
                     return true;
                 }
 
-                player.sendMessage(Utils.chat("&4Invalid arguments!\n" +
-                        "/prefix [set|remove] <player> <type>"));
+            } else {
+
+                player.sendMessage(Utils.chat("&4Invalid arguments!\n/prefix [set|remove] <player> <type>"));
 
                 return true;
+
             }
 
-
-
         }else{
+
             sender.sendMessage(Utils.chat(Lang.SENDER_NOT_PLAYER.string(instance)));
+
         }
 
         return true;

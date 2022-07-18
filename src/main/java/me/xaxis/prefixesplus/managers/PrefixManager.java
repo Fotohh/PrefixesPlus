@@ -2,6 +2,7 @@ package me.xaxis.prefixesplus.managers;
 
 import me.xaxis.prefixesplus.PrefixesPlus;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,8 @@ public class PrefixManager {
     Map<String, String> prefixes = new HashMap<>();
 
     Map<UUID, Boolean> hasPrefix = new HashMap<>();
+
+    Map<UUID, String> prefix = new HashMap<>();
 
     public PrefixManager(PrefixesPlus instance){
         this.instance = instance;
@@ -33,8 +36,27 @@ public class PrefixManager {
 
     }
 
+    public void setPrefix(UUID playerUUID, String value){
+        if(prefix.containsKey(playerUUID)){
+            prefix.replace(playerUUID, value);
+        }else{
+            prefix.put(playerUUID, value);
+        }
+    }
+
     public boolean hasPrefix(UUID playerUUID){
         return hasPrefix.get(playerUUID);
+    }
+
+    public String getPrefix(UUID playerUUID){
+
+        if(hasPrefix(playerUUID)){
+
+            return prefix.get(playerUUID);
+
+        }
+
+        return "";
     }
 
     public void setHasPrefix(UUID playerUUID, boolean value){

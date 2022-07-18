@@ -21,13 +21,20 @@ public class AsyncChat implements Listener {
 
         Player player = e.getPlayer();
 
-        if(!manager.hasPrefix(player.getUniqueId())) return;
+        if(!manager.hasPrefix(player.getUniqueId())){
+            e.setFormat(player.getName()+": " +e.getMessage());
+            return;
+        }
 
-        String a = e.getMessage().replace("<", "");
-        String b = a.replace(">", "");
-        String result = Utils.chat(b);
+        String prefix  = manager.getPrefix(player.getUniqueId());
 
-        e.setMessage(result);
+        String name = player.getName();
+
+        String msg = e.getMessage();
+
+        String result = player.getDisplayName() + ": " + msg;
+
+        e.setFormat(Utils.chat(result));
 
     }
 
