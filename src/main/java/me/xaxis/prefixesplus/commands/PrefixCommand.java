@@ -28,9 +28,9 @@ public class PrefixCommand implements CommandExecutor {
 
         if(sender instanceof Player player) {
 
-            if (args.length <= 3) {
+            if (args.length >= 2) {
 
-                if (args[0].equalsIgnoreCase("set") && player.hasPermission(Permission.SET_PREFIX.string(instance)) || player.hasPermission(Permission.ADMIN.string(instance))) {
+                if (args[0].equalsIgnoreCase("set") && player.hasPermission(Permission.SET_PREFIX.string(instance)) || args[0].equalsIgnoreCase("set") && player.hasPermission(Permission.ADMIN.string(instance))) {
 
                     Player other = Bukkit.getServer().getPlayer(args[1]);
 
@@ -42,10 +42,13 @@ public class PrefixCommand implements CommandExecutor {
 
                     other.setDisplayName(manager.getPrefix(prefix_name) + " " + other.getName());
                     other.setPlayerListName(manager.getPrefix(prefix_name) + " " + other.getName());
+                    manager.setHasPrefix(player.getUniqueId(), true);
 
+                    player.sendMessage(Utils.chat("&aSuccessfully set "+other.getDisplayName()+"'s prefix!"));
 
+                    return true;
                 }
-                if(args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.REMOVE_PREFIX.string(instance)) || player.hasPermission(Permission.ADMIN.string(instance))){
+                else if(args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.REMOVE_PREFIX.string(instance)) || args[0].equalsIgnoreCase("remove") && player.hasPermission(Permission.ADMIN.string(instance))){
 
                     Player other = Bukkit.getServer().getPlayer(args[1]);
 
@@ -57,15 +60,14 @@ public class PrefixCommand implements CommandExecutor {
 
                     other.setDisplayName(other.getName());
                     other.setPlayerListName(other.getName());
+                    manager.setHasPrefix(player.getUniqueId(), false);
 
+                    player.sendMessage(Utils.chat("&aSuccessfully removed "+other.getDisplayName()+"'s prefix!"));
+
+                    return true;
                 }
 
             }else{
-                player.sendMessage(Utils.chat("&4Invalid arguments!\n" +
-                        "/prefix [set|remove] <player> <type>"));
-            }
-
-            if(args.length > 1){
 
                 if(args[0].equalsIgnoreCase("list")){
 
@@ -75,12 +77,16 @@ public class PrefixCommand implements CommandExecutor {
                         player.sendMessage(Utils.chat(keys+": "+manager.getPrefix(keys)));
                     }
 
+                    return true;
                 }
 
-            }else{
                 player.sendMessage(Utils.chat("&4Invalid arguments!\n" +
                         "/prefix [set|remove] <player> <type>"));
+
+                return true;
             }
+
+
 
         }else{
             sender.sendMessage(Utils.chat(Lang.SENDER_NOT_PLAYER.string(instance)));
