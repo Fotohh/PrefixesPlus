@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.jetbrains.annotations.NotNull;
 
 public class AsyncChat implements Listener {
 
@@ -17,7 +16,7 @@ public class AsyncChat implements Listener {
     }
 
     @EventHandler
-    public void onChat(@NotNull AsyncPlayerChatEvent e){
+    public void onChat(AsyncPlayerChatEvent e){
 
         Player player = e.getPlayer();
 
